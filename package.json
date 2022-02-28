@@ -1,0 +1,28 @@
+{
+  "name": "safeukraine-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "truffle compile --all",
+    "build": "rm -rf ./build/dist/ && sol-merger -c \"./contracts/**/*.sol\" ./build/dist/",
+    "migrate": "npm run compile && truffle migrate --network bsc_testnet --compile-none --reset"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElephantsLab/safeukraine-contracts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElephantsLab/safeukraine-contracts/issues"
+  },
+  "homepage": "https://github.com/ElephantsLab/safeukraine-contracts#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0"
+  },
+  "devDependencies": {
+    "sol-merger": "^4.0.0"
+  }
+}
