@@ -11,6 +11,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
   uint256 private totalSupply;
 
   uint256 BASE_PRICE = 0.5 ether;
+  uint256 MAX_SUPPLY = 10000;
 
   constructor (string memory baseURI_) {
     baseURI = baseURI_;
@@ -19,6 +20,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
   receive() external payable {}
 
   function buy() external payable {
+    require(totalSupply < MAX_SUPPLY, "Max supply exceeded");
     require(msg.value >= BASE_PRICE, "Invalid NFT buy price amount");
 
     _mint(msg.sender, totalSupply++);
@@ -26,6 +28,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
 
   function buyMore(uint8 amount) external payable {
     require(amount > 0 && amount <= 10, "Invalid amount");
+    require((totalSupply + amount) <= MAX_SUPPLY, "Max supply exceeded");
     require(msg.value >= BASE_PRICE * uint256(amount), "Invalid NFT buy price amount");
 
     for (uint8 i = 0; i < amount; i++) {
