@@ -12,6 +12,8 @@ contract ERC721_prod is ERC721('NFT Token Name', "NFT"), Ownable { //TODO: chang
     baseURI = baseURI_;
   }
 
+  receive() external payable {}
+
   function mint(address _address) external payable onlyOwner {
     require(msg.value > 0.01 ether, "Invalid NFT buy price amount");
 
