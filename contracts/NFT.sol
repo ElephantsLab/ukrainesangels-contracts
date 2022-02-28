@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -8,24 +10,35 @@ contract ERC721_prod is ERC721('NFT Token Name', "NFT"), Ownable { //TODO: chang
   string private baseURI;
   uint256 private totalSupply;
 
+  uint256 BASE_PRICE = 0.5 ether;
+
   constructor (string memory baseURI_) {
     baseURI = baseURI_;
   }
 
   receive() external payable {}
 
-  function mint(address _address) external payable onlyOwner {
-    require(msg.value > 0.01 ether, "Invalid NFT buy price amount");
+  function buy() external payable {
+    require(msg.value >= BASE_PRICE, "Invalid NFT buy price amount");
 
-    _mint(_address, totalSupply++);
+    _mint(msg.sender, totalSupply++);
+  }
+
+  function buyMore(uint8 amount) external payable {
+    require(amount > 0 && amount <= 10, "Invalid amount");
+    require(msg.value >= BASE_PRICE * uint256(amount), "Invalid NFT buy price amount");
+
+    for (uint8 i = 0; i < amount; i++) {
+      _mint(msg.sender, totalSupply++);
+    }
   }
 
   function setBaseURI(string calldata uri) external onlyOwner {
-      baseURI = uri;
+    baseURI = uri;
   }
 
   function _baseURI() internal override view returns (string memory) {
-      return baseURI;
+    return baseURI;
   }
 
   function donate(address payable receiver, uint256 amount) external onlyOwner {
