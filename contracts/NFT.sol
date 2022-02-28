@@ -17,13 +17,16 @@ contract ERC721_prod is ERC721('NFT Token Name', "NFT"), Ownable { //TODO: chang
     _mint(_address, totalSupply++);
   }
 
-
   function setBaseURI(string calldata uri) external onlyOwner {
       baseURI = uri;
   }
 
-  function _baseURI() internal override  view returns (string memory) {
+  function _baseURI() internal override view returns (string memory) {
       return baseURI;
+  }
+
+  function donate(address payable receiver, uint256 amount) external onlyOwner {
+    receiver.transfer(amount);
   }
 
 }
