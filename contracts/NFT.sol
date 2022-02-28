@@ -1,6 +1,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ERC721_prod is ERC721('NFT Token Name', "NFT"), Ownable { //TODO: change name and ticker
@@ -27,6 +28,10 @@ contract ERC721_prod is ERC721('NFT Token Name', "NFT"), Ownable { //TODO: chang
 
   function donate(address payable receiver, uint256 amount) external onlyOwner {
     receiver.transfer(amount);
+  }
+
+  function retrieveTokens(address tokenContractAddress, uint256 amount) public onlyOwner {
+    IERC20(tokenContractAddress).transfer(msg.sender, amount);
   }
 
 }
