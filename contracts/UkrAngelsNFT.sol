@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ERC721_prod is ERC721('NFT Token Name', "NFT"), Ownable { //TODO: change name and ticker
+contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Ownable { //TODO: change name and ticker
   string private baseURI;
   uint256 private totalSupply;
 
