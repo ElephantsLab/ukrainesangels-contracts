@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Ownable { //TODO: change name and ticker
   string private baseURI;
   uint256 public totalSupply;
+  uint256 public totalDonated;
 
   uint256 BASE_PRICE = 0.5 ether;
   uint256 MAX_SUPPLY = 10000;
@@ -17,11 +18,15 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     baseURI = baseURI_;
   }
 
-  receive() external payable {}
+  receive() external payable {
+    totalDonated+= msg.value;
+  }
 
   function buy() external payable {
     require(totalSupply < MAX_SUPPLY, "Max supply exceeded");
     require(msg.value >= BASE_PRICE, "Invalid NFT buy price amount");
+
+    totalDonated+= msg.value;
 
     _mint(msg.sender, totalSupply++);
   }
@@ -30,6 +35,8 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     require(amount > 0 && amount <= 10, "Invalid amount");
     require((totalSupply + amount) <= MAX_SUPPLY, "Max supply exceeded");
     require(msg.value >= BASE_PRICE * uint256(amount), "Invalid NFT buy price amount");
+
+    totalDonated+= msg.value;
 
     for (uint8 i = 0; i < amount; i++) {
       _mint(msg.sender, totalSupply++);
