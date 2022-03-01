@@ -11,6 +11,9 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
   uint256 public totalSupply;
   uint256 public totalDonated;
 
+  mapping(address => bool) public nftOwners;
+  uint256 public nftOwnersCount;
+
   uint256 BASE_PRICE = 0.5 ether;
   uint256 MAX_SUPPLY = 10000;
 
@@ -27,6 +30,10 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     require(msg.value >= BASE_PRICE, "Invalid NFT buy price amount");
 
     totalDonated+= msg.value;
+    if (!nftOwners[msg.sender]) {
+      nftOwners[msg.sender] = true;
+      nftOwnersCount++;
+    }
 
     _mint(msg.sender, totalSupply++);
   }
@@ -37,6 +44,10 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     require(msg.value >= BASE_PRICE * uint256(amount), "Invalid NFT buy price amount");
 
     totalDonated+= msg.value;
+    if (!nftOwners[msg.sender]) {
+      nftOwners[msg.sender] = true;
+      nftOwnersCount++;
+    }
 
     for (uint8 i = 0; i < amount; i++) {
       _mint(msg.sender, totalSupply++);
