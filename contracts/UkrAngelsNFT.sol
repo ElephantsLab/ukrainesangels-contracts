@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Ownable { //TODO: change name and ticker
   string private baseURI;
-  uint256 private totalSupply;
+  uint256 public totalSupply;
 
   uint256 BASE_PRICE = 0.5 ether;
   uint256 MAX_SUPPLY = 10000;
