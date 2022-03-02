@@ -14,8 +14,8 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
   mapping(address => bool) public nftOwners;
   uint256 public nftOwnersCount;
 
-  uint256 BASE_PRICE = 1 ether;
-  uint256 MAX_SUPPLY = 10000;
+  uint256 public constant BASE_PRICE = 1 ether;
+  uint256 public constant MAX_SUPPLY = 10000;
 
   constructor (string memory baseURI_) {
     baseURI = baseURI_;
