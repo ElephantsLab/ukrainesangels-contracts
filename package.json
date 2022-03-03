@@ -23,6 +23,7 @@
     "@openzeppelin/contracts": "^4.5.0"
   },
   "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.15",
     "sol-merger": "^4.0.0"
   }
 }
