@@ -70,7 +70,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     receiver.transfer(amount);
   }
 
-  function retrieveTokens(address tokenContractAddress, uint256 amount) public onlyOwner {
+  function retrieveTokens(address tokenContractAddress, uint256 amount) external onlyOwner {
     IERC20(tokenContractAddress).transfer(msg.sender, amount);
   }
 
