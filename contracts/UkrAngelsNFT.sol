@@ -14,7 +14,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
   mapping(address => bool) public nftOwners;
   uint256 public nftOwnersCount;
 
-  uint256 public constant BASE_PRICE = 1 ether;
+  uint256 public price = 0.25 ether;
   uint256 public constant MAX_SUPPLY = 10000;
 
   constructor (string memory baseURI_) {
@@ -27,7 +27,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
 
   function buy() external payable {
     require(totalSupply < MAX_SUPPLY, "Max supply exceeded");
-    require(msg.value >= BASE_PRICE, "Invalid NFT buy price amount");
+    require(msg.value >= price, "Invalid NFT buy price amount");
 
     totalDonated+= msg.value;
     if (!nftOwners[msg.sender]) {
@@ -41,7 +41,7 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
   function buyMore(uint8 amount) external payable {
     require(amount > 0 && amount <= 10, "Invalid amount");
     require((totalSupply + amount) <= MAX_SUPPLY, "Max supply exceeded");
-    require(msg.value >= BASE_PRICE * uint256(amount), "Invalid NFT buy price amount");
+    require(msg.value >= price * uint256(amount), "Invalid NFT buy price amount");
 
     totalDonated+= msg.value;
     if (!nftOwners[msg.sender]) {
@@ -52,6 +52,12 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     for (uint8 i = 0; i < amount; i++) {
       _mint(msg.sender, totalSupply++);
     }
+  }
+
+  function changePrice(uint256 price_) external onlyOwner {
+    require(price_ == 0.25 ether || price_ == 0.5 ether || price_ == 1 ether, "Invalid price amount");
+
+    price = price_;
   }
 
   function setBaseURI(string calldata uri) external onlyOwner {
