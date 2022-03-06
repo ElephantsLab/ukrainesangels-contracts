@@ -54,10 +54,8 @@ contract UkrAngelsNFT is ERC721('UkrainesAngels NFT Collection', "UKRNFT"), Owna
     }
   }
 
-  function changePrice(uint256 price_) external onlyOwner {
-    require(price_ == 0.25 ether || price_ == 0.5 ether || price_ == 1 ether, "Invalid price amount");
-
-    price = price_;
+  function changePrice() external onlyOwner {
+    price*= 2;
   }
 
   function setBaseURI(string calldata uri) external onlyOwner {
